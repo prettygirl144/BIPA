@@ -1,0 +1,11 @@
+Case1/
+*.xlsx
+*.csv
+*.png
+*.pdf
+*.txt
+backend_reference/
+requirements-full.txt
+node_modules/
+.env.local
+.env
