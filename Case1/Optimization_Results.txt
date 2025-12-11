@@ -1,0 +1,28 @@
+--- PART A: CLUSTERING COMPLETE ---
+Clustering prepared for 183 stores.
+Derived metrics sample:
+   Markdown_Sensitivity  NP_Per_SqFt   Zone
+4                   0.0          0.0   EAST
+5                   0.0          0.0   WEST
+6                   0.0          0.0  NORTH
+7                   0.0          0.0   WEST
+8                   0.0          0.0  SOUTH
+
+--- PART B: FORECASTING COMPLETE ---
+Model Coefficients:
+const            2.618675
+log_lag_sales    0.509915
+log_disc         0.357265
+log_lag_disc    -0.301669
+promo_flag       0.455792
+age             -0.014149
+dtype: float64
+
+--- PART C: OPTIMIZATION COMPLETE ---
+Optimization Successful.
+Optimal Discounts: ['10.00%', '10.00%', '11.51%', '15.79%']
+Maximum Predicted Revenue: INR 627,199.30
+Saved Plot 1: D:\Term V\BIPA\Case1\1_Clustering_Dendrogram.png
+Saved Plot 2: D:\Term V\BIPA\Case1\2_Cluster_Scatter.png
+Saved Plot 3: D:\Term V\BIPA\Case1\3_Forecast_Model_Fit.png
+Saved Plot 4: D:\Term V\BIPA\Case1\4_Optimization_Strategy.png
