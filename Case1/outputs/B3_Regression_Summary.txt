@@ -1,0 +1,29 @@
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:              log_sales   R-squared:                       0.843
+Model:                            OLS   Adj. R-squared:                  0.834
+Method:                 Least Squares   F-statistic:                     94.53
+Date:                Wed, 26 Nov 2025   Prob (F-statistic):           7.36e-34
+Time:                        16:07:12   Log-Likelihood:                -42.757
+No. Observations:                  94   AIC:                             97.51
+Df Residuals:                      88   BIC:                             112.8
+Df Model:                           5                                         
+Covariance Type:            nonrobust                                         
+==================================================================================
+                     coef    std err          t      P>|t|      [0.025      0.975]
+----------------------------------------------------------------------------------
+const              2.6187      0.543      4.821      0.000       1.539       3.698
+log_lag_sales      0.5099      0.085      6.026      0.000       0.342       0.678
+log_disc           0.3573      0.091      3.912      0.000       0.176       0.539
+log_lag_disc      -0.3017      0.090     -3.340      0.001      -0.481      -0.122
+promo_week_flg     0.4558      0.128      3.568      0.001       0.202       0.710
+age               -0.0141      0.003     -4.152      0.000      -0.021      -0.007
+==============================================================================
+Omnibus:                       12.113   Durbin-Watson:                   2.179
+Prob(Omnibus):                  0.002   Jarque-Bera (JB):               15.669
+Skew:                          -0.632   Prob(JB):                     0.000396
+Kurtosis:                       4.551   Cond. No.                         755.
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.

@@ -1,9 +1,10 @@
 flask
 flask-cors
-# pandas
-# numpy
-# lifetimes
-# mlxtend
-# scipy
-# scikit-learn
-# networkx
+pandas
+numpy
+lifetimes
+mlxtend
+scipy
+scikit-learn
+networkx
+openpyxl

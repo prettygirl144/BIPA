@@ -12,7 +12,15 @@ import CustomerJourney from './components/CustomerJourney';
 import WarRoom from './components/WarRoom';
 
 import { AppState, AppView, CustomerRFM, ClusterCentroid, AssociationRule, TransitionData, ChannelPerformance } from './types';
-import { generateDemoData, calculateAdvancedRFM, performKMeans, performMarketBasket, performMarkovChain, optimizeBudget } from './services/analysisService';
+import { 
+  generateDemoData, 
+  calculateAdvancedRFM, 
+  performKMeans, 
+  performMarketBasket, 
+  performMarkovChain, 
+  optimizeBudget,
+  analyzeViaAPI 
+} from './services/analysisService';
 
 const App = () => {
   const [appState, setAppState] = useState<AppState>(AppState.IDLE);
@@ -27,44 +35,73 @@ const App = () => {
   
   const [analysisError, setAnalysisError] = useState<string | null>(null);
 
-  const handleFileUpload = (file: File | null) => {
+  const performLocalAnalysis = () => {
+    // 1. Generate Advanced Demo Data
+    const rawData = generateDemoData(300);
+    
+    // 2. Advanced RFM (Lifecycle)
+    const rfmData = calculateAdvancedRFM(rawData);
+    
+    // 3. K-Means
+    const { clusteredData, centroids } = performKMeans(rfmData);
+    
+    // 4. Market Basket
+    const basketRules = performMarketBasket(rawData);
+
+    // 5. Markov
+    const markovTransitions = performMarkovChain(clusteredData);
+
+    // 6. Budget
+    const budgetPlan = optimizeBudget();
+    
+    setAnalyzedData(clusteredData);
+    setCentroids(centroids);
+    setRules(basketRules);
+    setTransitions(markovTransitions);
+    setBudget(budgetPlan);
+  };
+
+  const handleFileUpload = async (file: File | null) => {
     setAppState(AppState.PROCESSING);
     setAnalysisError(null);
     
-    // Simulate Async Processing
-    setTimeout(() => {
-      try {
-        // 1. Generate Advanced Demo Data
-        const rawData = generateDemoData(300);
+    try {
+        if (!file) {
+             // Demo Mode (Local)
+             // Simulate network delay for effect
+             await new Promise(resolve => setTimeout(resolve, 2000));
+             performLocalAnalysis();
+        } else {
+             // Real File Mode (Server First -> Local Fallback)
+             try {
+                // Attempt server-side processing
+                const apiResult = await analyzeViaAPI(file);
+                
+                setAnalyzedData(apiResult.analyzedData);
+                setCentroids(apiResult.centroids);
+                setRules(apiResult.rules);
+                setTransitions(apiResult.transitions);
+                setBudget(apiResult.budget);
+                
+             } catch (serverError) {
+                console.warn("Server analysis failed, falling back to local simulation.", serverError);
+                // If backend fails, we can either:
+                // A) Show error
+                // B) Parse the CSV locally and run local logic (Truly graceful)
+                
+                // For this demo, we fall back to generating demo data to ensure the UI still works
+                // In a real app, you would parse the File object locally using PapaParse
+                performLocalAnalysis();
+                setAnalysisError("Server unavailable. Running in offline simulation mode.");
+             }
+        }
         
-        // 2. Advanced RFM (Lifecycle)
-        const rfmData = calculateAdvancedRFM(rawData);
-        
-        // 3. K-Means
-        const { clusteredData, centroids } = performKMeans(rfmData);
-        
-        // 4. Market Basket
-        const basketRules = performMarketBasket(rawData);
-
-        // 5. Markov
-        const markovTransitions = performMarkovChain(clusteredData);
-
-        // 6. Budget
-        const budgetPlan = optimizeBudget();
-        
-        setAnalyzedData(clusteredData);
-        setCentroids(centroids);
-        setRules(basketRules);
-        setTransitions(markovTransitions);
-        setBudget(budgetPlan);
-
         setAppState(AppState.DASHBOARD);
 
-      } catch (err: any) {
+    } catch (err: any) {
         setAnalysisError(err.message || "An unknown error occurred during analysis.");
         setAppState(AppState.IDLE);
-      }
-    }, 4000); 
+    }
   };
 
   const resetApp = () => {
@@ -106,7 +143,7 @@ const App = () => {
                 className="h-[90vh] flex flex-col justify-center relative"
               >
                 {analysisError && (
-                  <div className="absolute top-10 left-0 right-0 max-w-lg mx-auto p-4 bg-rose-950/30 border border-rose-500/50 rounded-xl flex items-center gap-3 text-rose-200">
+                  <div className="absolute top-10 left-0 right-0 max-w-lg mx-auto p-4 bg-amber-950/30 border border-amber-500/50 rounded-xl flex items-center gap-3 text-amber-200">
                       <AlertCircle className="w-5 h-5" />
                       <span className="text-sm font-medium">{analysisError}</span>
                   </div>

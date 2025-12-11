@@ -1,0 +1,27 @@
+
+--- PART A: CLUSTERING ---
+Saved A1_Dendrogram.png
+Saved A2_Cluster_Profiling.png
+Cluster Profiling Data (Mean Values):
+         Markdown_Sensitivity  NP_Per_SqFt
+Cluster                                   
+1                    0.000000     0.000000
+2                    1.023849     0.203337
+3                    1.017975     1.932578
+4                    1.014226     1.333518
+
+--- PART B: FORECASTING ---
+Model Coefficients:
+const             2.618675
+log_lag_sales     0.509915
+log_disc          0.357265
+log_lag_disc     -0.301669
+promo_week_flg    0.455792
+age              -0.014149
+dtype: float64
+Saved B2_Model_Diagnostics.png
+
+--- PART C: OPTIMIZATION ---
+Optimal Discounts: ['10.00%', '10.00%', '11.51%', '15.79%']
+Max Revenue: INR 627,199.30
+Saved C1_Optimization_Results.png

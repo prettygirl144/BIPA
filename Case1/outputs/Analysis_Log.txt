@@ -1,0 +1,24 @@
+
+--- PART A: CLUSTERING ---
+Saved A3_Elbow_Plot.png
+Saved A4_Silhouette_Plot.png
+Saved A5_Cluster_PCA_Plot.png
+
+--- PART B: FORECASTING ---
+Saved B3_Regression_Summary.txt
+
+--- PART C: OPTIMIZATION ---
+
+--- OPTIMIZATION DECISION TABLE ---
+Variable Optimal Value
+      d1         10.0%
+      s1         20.45
+      d2         10.0%
+      s2         22.17
+      d3         11.5%
+      s3         23.95
+      d4         15.8%
+      s4         26.36
+Saved C2_Optimization_Table.png
+Forecasted Revenue: INR 627,199
+Incremental Lift: INR 585,879

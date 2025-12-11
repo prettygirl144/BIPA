@@ -5,6 +5,29 @@ import { CustomerTransaction, CustomerRFM, ClusterCentroid, AssociationRule, Tra
  * Implements actual K-Means, Dynamic Markov Chains, and Persona-based Data Generation.
  */
 
+// --- API INTEGRATION ---
+export const analyzeViaAPI = async (file: File): Promise<{
+    analyzedData: CustomerRFM[];
+    centroids: ClusterCentroid[];
+    rules: AssociationRule[];
+    transitions: TransitionData[];
+    budget: ChannelPerformance[];
+}> => {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const response = await fetch('/api/analyze', {
+        method: 'POST',
+        body: formData,
+    });
+
+    if (!response.ok) {
+        throw new Error(`Server Error: ${response.statusText}`);
+    }
+
+    return await response.json();
+};
+
 // --- 1. Enhanced Data Generator (Persona-based) ---
 export const generateDemoData = (count: number = 500): CustomerTransaction[] => {
   const transactions: CustomerTransaction[] = [];
